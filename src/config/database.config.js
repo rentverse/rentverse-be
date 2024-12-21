@@ -24,5 +24,6 @@ export default {
     database: process.env.DB_NAME || "rentverse_db_prod",
     host: process.env.DB_HOST || "127.0.0.1",
     dialect: "postgresql",
+    logging: false,
   },
 };

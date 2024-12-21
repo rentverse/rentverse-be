@@ -21,13 +21,11 @@ if (dbConfig.use_env_variable) {
   );
 }
 
-const modelFiles = fs
-  .readdirSync(path.dirname(import.meta.url))
-  .filter((file) => {
-    return (
-      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
-    );
-  });
+const modelFiles = fs.readdirSync(path.resolve("src/models")).filter((file) => {
+  return (
+    file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
+  );
+});
 
 for (const file of modelFiles) {
   const model = (
@@ -41,7 +39,6 @@ Object.keys(db).forEach((modelName) => {
     db[modelName].associate(db);
   }
 });
-
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
