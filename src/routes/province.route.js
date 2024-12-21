@@ -8,6 +8,6 @@ import {
 const router = Router();
 
 router.get("/provinces", apiKeyMiddleware, getAllProvinces);
-router.get("/province/:id", apiKeyMiddleware, getProvinceById);
+router.get("/provinces/:id", apiKeyMiddleware, getProvinceById);
 
 export default router;
