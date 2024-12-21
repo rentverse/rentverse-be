@@ -1,6 +1,8 @@
 import status from "http-status";
 import db from "../models/index.js";
 import { Op } from "sequelize";
+import { camelToSnake, removeDeletedAt } from "../utils/format.util.js";
+import { convertSequelizeData } from "../utils/sequelize.util.js";
 
 const { City, Province } = db;
 
@@ -44,7 +46,7 @@ export const getAllCities = async (req, res) => {
 
     return res.status(status.OK).json({
       success: true,
-      data: cities,
+      data: camelToSnake(removeDeletedAt(convertSequelizeData(cities))),
     });
   } catch (error) {
     console.error(error);
@@ -85,7 +87,7 @@ export const getCityById = async (req, res) => {
 
     return res.status(status.OK).json({
       success: true,
-      data: city,
+      data: camelToSnake(removeDeletedAt(convertSequelizeData(city))),
     });
   } catch (error) {
     console.error(error);
