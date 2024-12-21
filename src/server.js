@@ -4,6 +4,7 @@ import cors from "cors";
 import path from "path";
 import process from "process";
 import loadEnv from "./config/dotenv.config.js";
+import { routerV1 } from "./routes/index.js";
 
 loadEnv(process.env.NODE_ENV);
 
@@ -30,6 +31,9 @@ app.use(morgan(morganFormat));
 
 // incoming request parser
 app.use(express.json());
+
+// create router
+app.use("/api/v1/", routerV1);
 
 // serving static files
 app.use("/static", express.static(path.resolve("uploads")));
