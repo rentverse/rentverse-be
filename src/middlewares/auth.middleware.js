@@ -1,9 +1,6 @@
-import loadEnv from "../config/dotenv.config.js";
 import process from "process";
 import status from "http-status";
 import jwt from "jsonwebtoken";
-
-loadEnv(process.env.NODE_ENV);
 
 export const apiKeyMiddleware = (req, res, next) => {
   try {
