@@ -3,10 +3,8 @@ import morgan from "morgan";
 import cors from "cors";
 import path from "path";
 import process from "process";
-import loadEnv from "./config/dotenv.config.js";
 import { routerV1 } from "./routes/index.js";
-
-loadEnv(process.env.NODE_ENV);
+import { PORT } from "./utils/env.util.js";
 
 // create instance of express
 const app = express();
@@ -39,7 +37,7 @@ app.use("/api/v1/", routerV1);
 app.use("/static", express.static(path.resolve("uploads")));
 
 // get port from environment variable, if not exist then use default port 5000
-const port = process.env.PORT || 5000;
+const port = PORT;
 
 // run server
 app.listen(port, () => {
