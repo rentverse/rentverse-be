@@ -25,3 +25,7 @@ export const API_KEY = secrets?.API_KEY || process.env.API_KEY;
 
 export const TZ = secrets?.TZ || process.env.TZ;
 export const PORT = process.env.PORT || 5000;
+
+export const CORS_ORIGIN = secrets?.CORS_ORIGIN || process.env.CORS_ORIGIN;
+export const CORS_METHOD = secrets?.CORS_METHOD || process.env.CORS_METHOD;
+export const CORS_HEADER = secrets?.CORS_HEADER || process.env.CORS_HEADER;

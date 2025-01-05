@@ -2,9 +2,14 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import path from "path";
-import process from "process";
 import { routerV1 } from "./routes/index.js";
-import { PORT } from "./utils/env.util.js";
+import {
+  CORS_HEADER,
+  CORS_METHOD,
+  CORS_ORIGIN,
+  NODE_ENV,
+  PORT,
+} from "./utils/env.util.js";
 
 // create instance of express
 const app = express();
@@ -12,19 +17,14 @@ const app = express();
 // cors configuration
 app.use(
   cors({
-    origin: process.env.ORIGIN_ALLOWED,
-    methods: ["HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE"],
-    allowedHeaders: [
-      "Origin",
-      "X-Requested-With",
-      "Content-Type",
-      "Authorization",
-    ],
+    origin: CORS_ORIGIN.split(","),
+    methods: CORS_METHOD.split(","),
+    allowedHeaders: CORS_HEADER.split(","),
   })
 );
 
 // create logger instance
-const morganFormat = process.env.NODE_ENV === "production" ? "combined" : "dev";
+const morganFormat = NODE_ENV === "production" ? "combined" : "dev";
 app.use(morgan(morganFormat));
 
 // incoming request parser

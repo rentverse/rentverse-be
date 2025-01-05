@@ -1,6 +1,6 @@
-import process from "process";
 import status from "http-status";
 import jwt from "jsonwebtoken";
+import { API_KEY, JWT_SECRET } from "../utils/env.util.js";
 
 export const apiKeyMiddleware = (req, res, next) => {
   try {
@@ -8,7 +8,7 @@ export const apiKeyMiddleware = (req, res, next) => {
     const apiKey = req.headers["x-api-key"];
 
     // check is api key exist and valid
-    if (!apiKey || apiKey !== process.env.API_KEY) {
+    if (!apiKey || apiKey !== API_KEY) {
       return res.status(status.UNAUTHORIZED).json({
         message: "Unauthorized: Invalid API key",
       });
@@ -33,7 +33,7 @@ export const jwtMiddleware = (req, res, next) => {
       });
     }
 
-    jwt.verify(token, process.env.JWT_SECRET, (error, payload) => {
+    jwt.verify(token, JWT_SECRET, (error, payload) => {
       if (error) {
         return res.status(status.UNAUTHORIZED).json({
           status: status.UNAUTHORIZED,

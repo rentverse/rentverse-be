@@ -1,6 +1,6 @@
 import _ from "lodash";
 import moment from "moment-timezone";
-import process from "process";
+import { TZ } from "./env.util.js";
 
 export const snakeToCamel = (obj) => {
   if (Array.isArray(obj)) {
@@ -10,9 +10,7 @@ export const snakeToCamel = (obj) => {
       _.mapKeys(obj, (value, key) => _.camelCase(key)),
       (value) => {
         if (value instanceof Date) {
-          return moment(value)
-            .tz(process.env.TZ)
-            .format("YYYY-MM-DD HH:mm:ss ZZ");
+          return moment(value).tz(TZ).format("YYYY-MM-DD HH:mm:ss ZZ");
         }
         return snakeToCamel(value);
       }
@@ -29,9 +27,7 @@ export const camelToSnake = (obj) => {
       _.mapKeys(obj, (value, key) => _.snakeCase(key)),
       (value) => {
         if (value instanceof Date) {
-          return moment(value)
-            .tz(process.env.TZ)
-            .format("YYYY-MM-DD HH:mm:ss ZZ");
+          return moment(value).tz(TZ).format("YYYY-MM-DD HH:mm:ss ZZ");
         }
         return camelToSnake(value);
       }
