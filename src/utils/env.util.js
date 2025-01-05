@@ -2,17 +2,21 @@ import process from "process";
 import getSecretFromInfisical from "../config/infisical.config.js";
 import loadEnv from "../config/dotenv.config.js";
 
-const isSequelizeCli = process.env.SEQUELIZE_CLI;
-loadEnv(process.env.NODE_ENV);
+export const NODE_ENV = process.env.NODE_ENV;
 
-let secrets;
-if (!isSequelizeCli) {
-  secrets = await getSecretFromInfisical();
-}
+loadEnv(NODE_ENV);
+
+export const INFISICAL_CLIENT_ID = process.env.INFISICAL_CLIENT_ID;
+export const INFISICAL_CLIENT_SECRET = process.env.INFISICAL_CLIENT_SECRET;
+export const INFISICAL_PROJECT_ID = process.env.INFISICAL_PROJECT_ID;
+export const INFISICAL_PROJECT_PATH = process.env.INFISICAL_PROJECT_PATH;
+
+const secrets = await getSecretFromInfisical();
 
 export const DB_HOST = secrets?.DB_HOST || process.env.DB_HOST;
 export const DB_PORT = secrets?.DB_PORT || process.env.DB_PORT;
 export const DB_NAME = secrets?.DB_NAME || process.env.DB_NAME;
+export const DB_SCHEMA = secrets?.DB_SCHEMA || process.env.DB_SCHEMA;
 export const DB_USERNAME = secrets?.DB_USERNAME || process.env.DB_USERNAME;
 export const DB_PASSWORD = secrets?.DB_PASSWORD || process.env.DB_PASSWORD;
 

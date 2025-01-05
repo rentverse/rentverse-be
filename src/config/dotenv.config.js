@@ -1,6 +1,14 @@
 import { configDotenv } from "dotenv";
 import process from "process";
 
+/**
+ * Loads environment variables from a specified .env file based on the provided environment.
+ *
+ * @param {string} env - The environment to load variables for. Can be "development", "production", or any other string.
+ * If the environment is not recognized, the application will read global environment variables.
+ *
+ * @throws {Error} Will log an error if loading the environment variables fails.
+ */
 const loadEnv = (env) => {
   switch (env) {
     case "development":
@@ -11,7 +19,7 @@ const loadEnv = (env) => {
         console.log(
           "Error loading environment variables file, the apps will read global environtment variabels on this system"
         );
-        console.error("error >>>", error);
+        console.error("Error message :", error.message);
       }
 
       console.log("=== using development environment ===");
@@ -25,7 +33,7 @@ const loadEnv = (env) => {
         console.log(
           "Error loading environment variables file, the apps will read global environtment variabels on this system"
         );
-        console.error("error >>>", error);
+        console.error("Error message :", error.message);
       }
 
       console.log("=== using production environment ===");
