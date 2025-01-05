@@ -52,6 +52,9 @@ export default (sequelize, DataTypes) => {
   );
 
   User.associate = (models) => {
+    User.belongsTo(models.City, {
+      foreignKey: "cityId",
+    });
     User.hasMany(models.Transaction, {
       foreignKey: "userId",
     });

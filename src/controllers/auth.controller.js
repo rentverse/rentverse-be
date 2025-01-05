@@ -5,13 +5,14 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {
   camelToSnake,
+  removeDeletedAt,
   removePassword,
   snakeToCamel,
 } from "../utils/format.util.js";
 import { convertSequelizeData } from "../utils/sequelize.util.js";
 import { JWT_SECRET } from "../utils/env.util.js";
 
-const { User } = db;
+const { User, City, Province } = db;
 
 // Validation schema
 const registerSchema = Joi.object({
@@ -60,10 +61,21 @@ export const registerUser = async (req, res) => {
 
     // Create new user
     const newUser = await User.create(userData);
+    const addedUser = await User.findOne({
+      where: { id: newUser.id },
+      include: [
+        {
+          model: City,
+          include: [{ model: Province }],
+        },
+      ],
+    });
 
     return res.status(status.CREATED).json({
       success: true,
-      data: camelToSnake(removePassword(convertSequelizeData(newUser))),
+      data: camelToSnake(
+        removeDeletedAt(removePassword(convertSequelizeData(addedUser)))
+      ),
     });
   } catch (error) {
     console.error(error);
@@ -117,9 +129,9 @@ export const loginUser = async (req, res) => {
 
     return res.status(status.OK).json({
       success: true,
-      message: "Login successful.",
+      message: "Login successful",
       token,
-      user: camelToSnake(removePassword(convertSequelizeData(user))),
+      // user: camelToSnake(removePassword(convertSequelizeData(user))),
     });
   } catch (error) {
     console.error(error);
@@ -146,9 +158,9 @@ export const checkAuth = async (req, res) => {
 
     return res.status(status.OK).json({
       success: true,
-      message: "Check auth successful.",
+      message: "Check auth successful",
       token,
-      user: camelToSnake(removePassword(convertSequelizeData(user))),
+      // user: camelToSnake(removePassword(convertSequelizeData(user))),
     });
   } catch (error) {
     console.error(error);
