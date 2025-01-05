@@ -3,13 +3,13 @@ import db from "../models/index.js";
 import Joi from "joi";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import process from "process";
 import {
   camelToSnake,
   removePassword,
   snakeToCamel,
 } from "../utils/format.util.js";
 import { convertSequelizeData } from "../utils/sequelize.util.js";
+import { JWT_SECRET } from "../utils/env.util.js";
 
 const { User } = db;
 
@@ -111,13 +111,42 @@ export const loginUser = async (req, res) => {
     // generate jwt
     const token = jwt.sign(
       { id: user.id, username: user.username, email: user.email }, // payload
-      process.env.JWT_SECRET,
+      JWT_SECRET,
       { expiresIn: "1d", issuer: "rentverse" }
     );
 
     return res.status(status.OK).json({
       success: true,
       message: "Login successful.",
+      token,
+      user: camelToSnake(removePassword(convertSequelizeData(user))),
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(status.INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+
+export const checkAuth = async (req, res) => {
+  try {
+    const user = await User.findOne({
+      where: { id: req.authenticatedUser.id },
+    });
+    if (!user) {
+      return res.status(status.UNAUTHORIZED).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+
+    const token = req.headers.authorization?.split(" ")[1];
+
+    return res.status(status.OK).json({
+      success: true,
+      message: "Check auth successful.",
       token,
       user: camelToSnake(removePassword(convertSequelizeData(user))),
     });
