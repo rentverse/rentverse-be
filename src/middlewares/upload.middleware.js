@@ -1,12 +1,19 @@
-import path from "path";
+import path, { join } from "path";
 import multer from "multer";
 import status from "http-status";
 import { v4 as uuidv4 } from "uuid";
+import { cwd } from "process";
+import { existsSync, mkdirSync } from "fs";
+
+const assetsDir = join(cwd(), "/assets/upload");
+if (!existsSync(assetsDir)) {
+  mkdirSync(assetsDir, { recursive: true });
+}
 
 const diskStorage = multer.diskStorage({
   // konfigurasi lokasi penyimpanan file
   destination: function (req, file, cb) {
-    cb(null, path.resolve("upload"));
+    cb(null, path.resolve("assets", "upload"));
   },
   // konfigurasi penamaan file yang unik
   filename: function (req, file, cb) {
