@@ -1,4 +1,3 @@
- 
 "use strict";
 
 export default {
@@ -18,7 +17,7 @@ export default {
         allowNull: true,
       },
       location: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: true,
       },
       city_id: {
@@ -30,10 +29,6 @@ export default {
         },
         onUpdate: "CASCADE",
         onDelete: "RESTRICT",
-      },
-      address: {
-        type: Sequelize.TEXT,
-        allowNull: true,
       },
       stock: {
         type: Sequelize.INTEGER,

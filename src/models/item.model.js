@@ -11,16 +11,12 @@ export default (sequelize, DataTypes) => {
         allowNull: true,
       },
       location: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
       },
       cityId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-      },
-      address: {
-        type: DataTypes.TEXT,
-        allowNull: true,
       },
       stock: {
         type: DataTypes.INTEGER,
@@ -31,6 +27,10 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
       },
       categoryId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

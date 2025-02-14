@@ -1,4 +1,3 @@
- 
 "use strict";
 
 export default {
@@ -8,6 +7,11 @@ export default {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
+      },
+      transaction_number: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
       },
       transaction_date: {
         type: Sequelize.DATE,

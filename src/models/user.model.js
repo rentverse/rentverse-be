@@ -58,9 +58,6 @@ export default (sequelize, DataTypes) => {
     User.hasMany(models.Transaction, {
       foreignKey: "userId",
     });
-    User.hasMany(models.ItemReview, {
-      foreignKey: "userId",
-    });
     User.hasMany(models.Item, {
       foreignKey: "userId",
     });

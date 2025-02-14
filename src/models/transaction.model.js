@@ -2,6 +2,11 @@ export default (sequelize, DataTypes) => {
   const Transaction = sequelize.define(
     "Transaction",
     {
+      transactionNumber: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
       transactionDate: {
         type: DataTypes.DATE,
         allowNull: false,
