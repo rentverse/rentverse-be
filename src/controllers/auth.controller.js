@@ -131,7 +131,7 @@ export const loginUser = async (req, res) => {
       success: true,
       message: "Login successful",
       token,
-      // user: camelToSnake(removePassword(convertSequelizeData(user))),
+      // data: camelToSnake(removePassword(convertSequelizeData(user))),
     });
   } catch (error) {
     console.error(error);
@@ -160,7 +160,7 @@ export const checkAuth = async (req, res) => {
       success: true,
       message: "Check auth successful",
       token,
-      // user: camelToSnake(removePassword(convertSequelizeData(user))),
+      // data: camelToSnake(removePassword(convertSequelizeData(user))),
     });
   } catch (error) {
     console.error(error);

@@ -31,7 +31,7 @@ export const checkProfile = async (req, res) => {
     return res.status(status.OK).json({
       success: true,
       message: "Check profile successful.",
-      user: camelToSnake(
+      data: camelToSnake(
         removeDeletedAt(removePassword(convertSequelizeData(user)))
       ),
     });
@@ -102,7 +102,7 @@ export const updateProfile = async (req, res) => {
     return res.status(status.OK).json({
       success: true,
       message: "Update profile successful.",
-      user: camelToSnake(
+      data: camelToSnake(
         removeDeletedAt(removePassword(convertSequelizeData(user)))
       ),
     });
